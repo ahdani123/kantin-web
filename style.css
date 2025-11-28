@@ -16,10 +16,8 @@ body { font-family: Arial; padding: 20px; }
 .product-image {
     width: 100%;
     height: 180px;        /* Ukuran kotak */
-    object-fit: contain;    /* tidak memotong gambar */
-    background-color: #f4f4f4;   /* warna latar untuk gambar yang tidak penuh */
-    border-radius: 10px;
-    padding: 10px;    /* Warna dasar kalau gambar kosong */
+    object-fit: contain;    /* tidak memotong gambar */   /* warna latar untuk gambar yang tidak penuh */
+    border-radius: 10px;    /* Warna dasar kalau gambar kosong */
 }
 
 /* WARNA STOK */
