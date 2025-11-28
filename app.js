@@ -4,6 +4,10 @@ const sheetURL =
 
 let allProducts = [];
 
+let cache = localStorage.getItem("kantinData");
+if (cache) {
+    displayProducts(JSON.parse(cache));
+}
 async function loadData() {
     const response = await fetch(sheetURL);
     const csv = await response.text();
@@ -54,7 +58,6 @@ function displayProducts(products) {
         card.className = "product-card";
 
         card.innerHTML = `
-            <img src="${item.gambar}" class="product-image" alt="${item.nama}">
             <img src="${item.gambar}" loading="lazy" class="product-image" alt="${item.nama}">
             <h3>${item.nama}</h3>
             <p>Jenis: ${item.jenis}</p>
