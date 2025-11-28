@@ -1,5 +1,8 @@
 // URL Google Sheets CSV
-const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-Iw7Ou8GyhlBVW_aVhj6xPlncGhtMgYBzzHxnCXMkY5-pNp0lAzEXgov7SM8MlrvaKASy0-AQzQk4/pub?output=csv";
+const sheetURL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vR-Iw7Ou8GyhlBVW_aVhj6xPlncGhtMgYBzzHxnCXMkY5-pNp0lAzEXgov7SM8MlrvaKASy0-AQzQk4/pub?output=csv";
+
+let allProducts = [];
 
 async function loadData() {
     const response = await fetch(sheetURL);
@@ -14,9 +17,29 @@ async function loadData() {
         return obj;
     });
 
-    displayProducts(data);
+    allProducts = data;
+    displayProducts(allProducts);
 }
 
+// FILTER FUNCTION
+function applyFilters() {
+    const hargaFilter = document.getElementById("filter-harga").value;
+    const jenisFilter = document.getElementById("filter-jenis").value;
+
+    let filtered = allProducts;
+
+    if (hargaFilter !== "") {
+        filtered = filtered.filter(p => p.harga === hargaFilter);
+    }
+
+    if (jenisFilter !== "") {
+        filtered = filtered.filter(p => p.jenis.toLowerCase() === jenisFilter.toLowerCase());
+    }
+
+    displayProducts(filtered);
+}
+
+// DISPLAY PRODUCT CARD
 function displayProducts(products) {
     const container = document.getElementById("product-list");
     container.innerHTML = "";
@@ -25,16 +48,27 @@ function displayProducts(products) {
         const card = document.createElement("div");
         card.className = "product-card";
 
+        // Warna stok
+        let stokClass = "stok-hijau";
+        if (item.stok === "0") stokClass = "stok-merah";
+        else if (parseInt(item.stok) <= 5) stokClass = "stok-orange";
+
         card.innerHTML = `
             <img src="${item.gambar}" class="product-image" alt="${item.nama}">
             <h3>${item.nama}</h3>
             <p>Jenis: ${item.jenis}</p>
             <p>Harga: Rp ${item.harga}</p>
-            <p>Stok: ${item.stok}</p>
+            <p class="${stokClass}">Stok: ${item.stok}</p>
         `;
 
         container.appendChild(card);
     });
 }
+
+// Event listener filter
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("filter-harga").addEventListener("change", applyFilters);
+    document.getElementById("filter-jenis").addEventListener("change", applyFilters);
+});
 
 loadData();
