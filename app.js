@@ -4,11 +4,19 @@ const sheetURL =
 
 let allProducts = [];
 
-let cache = localStorage.getItem("kantinData");
-if (cache) {
-    displayProducts(JSON.parse(cache));
-}
+// ============================
+//  CEK CACHE TERLEBIH DAHULU
+// ============================
 async function loadData() {
+
+    let cache = localStorage.getItem("kantinData");
+    if (cache) {
+        console.log("Memuat dari cache...");
+        allProducts = JSON.parse(cache);
+        applyFilters(); // langsung tampil
+    }
+
+    // Tetap ambil data terbaru dari Google Sheets di background
     const response = await fetch(sheetURL);
     const csv = await response.text();
 
@@ -21,10 +29,15 @@ async function loadData() {
         return obj;
     });
 
+    // Simpan ke cache (update data lama)
+    localStorage.setItem("kantinData", JSON.stringify(allProducts));
+
     applyFilters();
 }
 
-// FILTER LOGIC
+// ============================
+//  FILTER LOGIC
+// ============================
 function applyFilters() {
     const hargaFilter = document.getElementById("filter-harga").value;
     const jenisFilter = document.getElementById("filter-jenis").value;
@@ -42,7 +55,9 @@ function applyFilters() {
     displayProducts(filtered);
 }
 
-// DISPLAY PRODUCTS
+// ============================
+//  TAMPILKAN PRODUK
+// ============================
 function displayProducts(products) {
     const container = document.getElementById("product-list");
     container.innerHTML = "";
@@ -69,7 +84,9 @@ function displayProducts(products) {
     });
 }
 
-// EVENT LISTENERS
+// ============================
+//  EVENT LISTENER FILTER
+// ============================
 document.getElementById("filter-harga").addEventListener("change", applyFilters);
 document.getElementById("filter-jenis").addEventListener("change", applyFilters);
 
