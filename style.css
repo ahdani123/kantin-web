@@ -1,44 +1,21 @@
-body { font-family: Arial; padding: 20px; }
-.grid { 
-  display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
-  gap: 20px; 
-}
-.product-card { 
-  border: 1px solid #ccc; 
-  padding: 10px; 
-  border-radius: 10px; 
-  text-align: center;
-}
-.product-image { width: 100%; border-radius: 10px; }
-.stok-hijau { color: green; font-weight: bold; }
-.stok-orange { color: orange; font-weight: bold; }
-.stok-merah { color: red; font-weight: bold; }
-.filters { margin-bottom: 20px; }
-.filters select { margin-right: 10px; padding: 5px; }
-/* SEARCH BAR */
-#search {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    border: 1px solid #aaa;
-    font-size: 16px;
+body {
+    font-family: Arial;
+    padding: 20px;
+    transition: background .3s, color .3s;
 }
 
-/* DARK MODE BUTTON */
-#dark-toggle {
-    padding: 8px 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    cursor: pointer;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
 }
 
-/* CARD UPGRADE */
+/* CARD */
 .product-card {
     background: white;
     border-radius: 15px;
     padding: 15px;
+    text-align: center;
     box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
     transition: transform .2s, box-shadow .2s;
 }
@@ -46,11 +23,26 @@ body { font-family: Arial; padding: 20px; }
     transform: scale(1.04);
     box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
 }
+
 .product-image {
-    border-radius: 12px;
+    width: 100%;
+    height: 130px;
+    object-fit: contain;
 }
 
-/* STOK WARNINGS */
+/* FILTER + SEARCH */
+#search, select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    margin-bottom: 15px;
+}
+#dark-toggle {
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+/* STOK COLOR */
 .stok-hijau { color: green; font-weight: bold; }
 .stok-orange { color: orange; font-weight: bold; }
 .stok-merah { color: red; font-weight: bold; }
@@ -63,12 +55,14 @@ body.dark {
 body.dark .product-card {
     background: #1e1e1e;
     color: white;
-    box-shadow: 0px 2px 10px rgba(255,255,255,0.1);
 }
-body.dark input, 
+body.dark input,
 body.dark select {
-    background: #1e1e1e;
+    background: #222;
     color: white;
-    border: 1px solid #444;
+    border: 1px solid #555;
 }
-
+body.dark #dark-toggle {
+    background: #333;
+    color: white;
+}
