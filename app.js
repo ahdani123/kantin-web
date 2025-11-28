@@ -1,29 +1,51 @@
 // URL Google Sheets CSV
-const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-Iw7Ou8GyhlBVW_aVhj6xPlncGhtMgYBzzHxnCXMkY5-pNp0lAzEXgov7SM8MlrvaKASy0-AQzQk4/pub?output=csv";
+const sheetURL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vR-Iw7Ou8GyhlBVW_aVhj6xPlncGhtMgYBzzHxnCXMkY5-pNp0lAzEXgov7SM8MlrvaKASy0-AQzQk4/pub?output=csv";
+
+let allProducts = [];
 
 async function loadData() {
     const response = await fetch(sheetURL);
     const csv = await response.text();
 
     const rows = csv.trim().split("\n").map(r => r.split(","));
-    const header = rows.shift().map(h => h.trim());
+    const header = rows.shift().map(h => h.trim().toLowerCase());
 
-    const data = rows.map(row => {
+    allProducts = rows.map(row => {
         let obj = {};
         header.forEach((h, i) => obj[h] = row[i] ? row[i].trim() : "");
         return obj;
     });
 
-    displayProducts(data);
+    applyFilters();
 }
 
+// FILTER LOGIC
+function applyFilters() {
+    const hargaFilter = document.getElementById("filter-harga").value;
+    const jenisFilter = document.getElementById("filter-jenis").value;
+
+    let filtered = allProducts;
+
+    if (hargaFilter !== "") {
+        filtered = filtered.filter(p => p.harga === hargaFilter);
+    }
+
+    if (jenisFilter !== "") {
+        filtered = filtered.filter(p => p.jenis.toLowerCase() === jenisFilter.toLowerCase());
+    }
+
+    displayProducts(filtered);
+}
+
+// DISPLAY PRODUCTS
 function displayProducts(products) {
     const container = document.getElementById("product-list");
     container.innerHTML = "";
 
     products.forEach(item => {
 
-        // Tentukan warna stok
+        // Warna stok
         let stokClass = "stok-hijau";
         if (parseInt(item.stok) === 0) stokClass = "stok-merah";
         else if (parseInt(item.stok) <= 2) stokClass = "stok-orange";
@@ -42,5 +64,9 @@ function displayProducts(products) {
         container.appendChild(card);
     });
 }
+
+// EVENT LISTENERS
+document.getElementById("filter-harga").addEventListener("change", applyFilters);
+document.getElementById("filter-jenis").addEventListener("change", applyFilters);
 
 loadData();
