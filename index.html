@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Katalog Kantin</title>
-  <link rel="stylesheet" href="style.css">
-</head>
 <body>
 
 <h1>Katalog Barang Kantin</h1>
 
+<!-- SEARCH -->
+<input type="text" id="search" placeholder="Cari produk..." />
+
+<!-- DARK MODE TOGGLE -->
+<button id="dark-toggle">🌙 Dark Mode</button>
+
+<!-- FILTERS -->
 <div class="filters">
-    <label>Filter Harga:</label>
     <select id="filter-harga">
-        <option value="">Semua</option>
+        <option value="">Harga: Semua</option>
         <option value="500">500</option>
         <option value="1000">1000</option>
         <option value="2000">2000</option>
@@ -22,9 +22,8 @@
         <option value="6500">6500</option>
     </select>
 
-    <label>Filter Jenis:</label>
     <select id="filter-jenis">
-        <option value="">Semua</option>
+        <option value="">Jenis: Semua</option>
         <option value="Mie Instan">Mie Instan</option>
         <option value="Minuman Sachet">Minuman Sachet</option>
         <option value="Minuman">Minuman</option>
@@ -38,4 +37,3 @@
 <script src="app.js"></script>
 
 </body>
-</html>
