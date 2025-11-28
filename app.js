@@ -75,7 +75,7 @@ function displayProducts(products) {
         card.innerHTML = `
             <img src="${item.gambar}" loading="lazy" class="product-image" alt="${item.nama}">
             <h3>${item.nama}</h3>
-            <p>Harga: Rp ${item.harga}</p>
+            <p>Rp ${item.harga}</p>
             <p class="${stokClass}">Stok: ${item.stok}</p>
         `;
 
