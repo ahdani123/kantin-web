@@ -16,3 +16,59 @@ body { font-family: Arial; padding: 20px; }
 .stok-merah { color: red; font-weight: bold; }
 .filters { margin-bottom: 20px; }
 .filters select { margin-right: 10px; padding: 5px; }
+/* SEARCH BAR */
+#search {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #aaa;
+    font-size: 16px;
+}
+
+/* DARK MODE BUTTON */
+#dark-toggle {
+    padding: 8px 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* CARD UPGRADE */
+.product-card {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+    transition: transform .2s, box-shadow .2s;
+}
+.product-card:hover {
+    transform: scale(1.04);
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+}
+.product-image {
+    border-radius: 12px;
+}
+
+/* STOK WARNINGS */
+.stok-hijau { color: green; font-weight: bold; }
+.stok-orange { color: orange; font-weight: bold; }
+.stok-merah { color: red; font-weight: bold; }
+
+/* DARK MODE */
+body.dark {
+    background: #121212;
+    color: white;
+}
+body.dark .product-card {
+    background: #1e1e1e;
+    color: white;
+    box-shadow: 0px 2px 10px rgba(255,255,255,0.1);
+}
+body.dark input, 
+body.dark select {
+    background: #1e1e1e;
+    color: white;
+    border: 1px solid #444;
+}
+
