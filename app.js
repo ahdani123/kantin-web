@@ -22,6 +22,12 @@ function displayProducts(products) {
     container.innerHTML = "";
 
     products.forEach(item => {
+
+        // Tentukan warna stok
+        let stokClass = "stok-hijau";
+        if (parseInt(item.stok) === 0) stokClass = "stok-merah";
+        else if (parseInt(item.stok) <= 2) stokClass = "stok-orange";
+
         const card = document.createElement("div");
         card.className = "product-card";
 
@@ -30,7 +36,7 @@ function displayProducts(products) {
             <h3>${item.nama}</h3>
             <p>Jenis: ${item.jenis}</p>
             <p>Harga: Rp ${item.harga}</p>
-            <p>Stok: ${item.stok}</p>
+            <p class="${stokClass}">Stok: ${item.stok}</p>
         `;
 
         container.appendChild(card);
