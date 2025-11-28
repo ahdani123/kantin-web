@@ -28,14 +28,7 @@ function applyFilters() {
 
     if (hargaFilter) filtered = filtered.filter(p => p.harga === hargaFilter);
     if (jenisFilter) filtered = filtered.filter(p => p.jenis.toLowerCase() === jenisFilter.toLowerCase());
-
-    // SEARCH FILTER
-    if (search !== "") {
-        filtered = filtered.filter(p =>
-            p.nama.toLowerCase().includes(search) ||
-            p.jenis.toLowerCase().includes(search)
-        );
-    }
+    if (search) filtered = filtered.filter(p => p.nama.toLowerCase().includes(search));
 
     displayProducts(filtered);
 }
@@ -45,7 +38,6 @@ function displayProducts(products) {
     container.innerHTML = "";
 
     products.forEach(item => {
-
         let stokClass = "stok-hijau";
         if (item.stok === "0") stokClass = "stok-merah";
         else if (parseInt(item.stok) <= 5) stokClass = "stok-orange";
@@ -63,11 +55,10 @@ function displayProducts(products) {
     });
 }
 
-// DARK MODE TOGGLE
 document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("search").addEventListener("input", applyFilters);
     document.getElementById("filter-harga").addEventListener("change", applyFilters);
     document.getElementById("filter-jenis").addEventListener("change", applyFilters);
-    document.getElementById("search").addEventListener("input", applyFilters);
 
     document.getElementById("dark-toggle").addEventListener("click", () => {
         document.body.classList.toggle("dark");
